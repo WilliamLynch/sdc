@@ -20,9 +20,9 @@ The goals / steps of this project are the following:
 [image8]: ./figures/Car_Spatial_binning.jpg
 [video1]: ./project_video.mp4
 
-###Histogram of Oriented Gradients (HOG)
+### Histogram of Oriented Gradients (HOG)
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 I used multiple functions to extract HOG features in the IPython notebook.
 
@@ -42,17 +42,17 @@ Here is an example using the HOG parameters of `orientations=9`, `pixels_per_cel
 
 I then get the feature vector by using the `bin_spatial()` function to compute binned color features, then computing the color histogram features and concatenating them into asingle feature vector. This code can be found in `get_feature_vector()`
 
-####2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and settled on an optimization of speed and accuracy.   It is the one suggested by many in the forums and slack channels, and I kept coming back to it because it continued to be the best.  I might try to grid search parameters later though, on a higher powered computer / more time, as I think that is the best way to find optimal parameters.
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I ended up training an SVM with a Radial Basis Function kernel instead of a Linear SVM because it performed better and gave me less false positives.  The data used was scaled, shuffled, and split as per usual.  Scaled using the `StandardScaler`, shuffled and split using `train_test_split`.  Ultimately, I'd like to use a neural network instead of classical machine learning methods for this project though as I think it'd generalize and estimate better than the approach here.
 
-###Sliding Window Search
+### Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
 
@@ -63,7 +63,7 @@ Just kidding, I used the suggested sliding windows set up and chose the window s
 ![alt text][image6]
 
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 Ultimately I used the suggested implementation which uses thresholded heat maps and labels.  This approach filters false negatives as well as leaves us with one window for every vehicle instead of all windows around the vehicle.
 
@@ -75,20 +75,20 @@ Ultimately I used the suggested implementation which uses thresholded heat maps 
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./project_video_projecced.mp4)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 
 If you take a look at the `process_image()` function, you'll see that the last 5 window frames are saved.  Then you'll see a thresholded heat map applied to those frames, along with labeling.  The resulting image is just the original with the windows from the rest of the process drawn on. 
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 I had issues with false positives a great deal of the time.  Way too many non vehicles were being detected as vehicles, and that in the real world leads to trouble.  In the project video in particular, the billboard sign was detected as a vehicle, as were random spots along the highway
 
