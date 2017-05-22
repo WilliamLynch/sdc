@@ -152,8 +152,8 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-My pipeline will likely fail in the transform section as the source and destination points are very sentitive to change.  Small changes affected how well lane lines were deteted in my binary warped image greatly.
+My pipeline will likely fail in the transform section as the source and destination points are very sentitive to change.  Small changes affected how well lane lines were deteted in my binary warped image greatly. Also, I'm using hard-coded values to convert pixels to meters for `xm_per_pix`, which presents an issue for scaling. Lane width in pixels on my birds-eye view image can differ from 700px, the width of a lane in pixels that I used.  I plan on determining the lane width more accurately by using the previously determined polynomial coefficients and using that width to translate it to meters.  The same goes for the y coordinate.  We know that a dash line is about 3 meters. So we should be able to calculate the number of dashed lines in our wrapped image and then convert them to meters.  Again, this is something I would like to work on in a future iteration as I think it would make it more robust and accurate.
 
-The video makes it work well, but I doubt it'd work out in the road in it's current state.
+Another problem/issue I believe I face is rooted in the python language.  On the road, we should detect lane lines in real time, however python is usually for prototyping and real time streaming data will most likely be done in C/C++.  Therefore, while this is a beneficial exercise, it is most likely limited in it's potential.
 
-I definitely think my pipeline can be improved, as it fails when I run it on the harder video. 
+In regards to the processed video, it works.  But I doubt it'd work out in the road in it's current state for the above reasons.
